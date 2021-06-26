@@ -11,4 +11,4 @@ you can play it using commands to input a number in a specific spot using its co
 ./sudoku
 ```
 
-![alt text](https://github.com/Conanyedo/Sudoku/blob/master/sudoku.png?raw=true)
+![alt text](https://github.com/Conanyedo/Sudoku/blob/main/sudoku.png)
