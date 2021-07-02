@@ -6,7 +6,7 @@
 /*   By: ybouddou <ybouddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 20:07:09 by ybouddou          #+#    #+#             */
-/*   Updated: 2021/06/26 11:22:59 by ybouddou         ###   ########.fr       */
+/*   Updated: 2021/07/02 13:35:21 by ybouddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	print_color(char *color, int num, int nl)
 void	print_VLine(int x)
 {
 	if (!((x + 1) % 3))
-		print_color("\e[0;32m|", 1, 0);
+		print_color("\e[0m\e[1;32m|", 1, 0);
 	else
-		print_color("|", 1, 0);
+		print_color("\e[2;37m|", 1, 0);
 }
 
 void	print_HLine(int x, int y)
@@ -39,11 +39,11 @@ void	print_HLine(int x, int y)
 	while (++x < 37)
 	{
 		if (!((x) % 12) && x &&  x != 36 && y != 8)
-			print_color("\e[0;32m+", 1, 0);
+			print_color("\e[1;32m+", 1, 0);
 		else if (!((y + 1) % 3) || !x || x == 36)
-			print_color("\e[0;32m-", 1, 0);
+			print_color("\e[1;32m-", 1, 0);
 		else
-			print_color("-", 1, 0);
+			print_color("\e[2;37m-", 1, 0);
 	}
 	printf("\n");
 }
@@ -53,19 +53,21 @@ void	print_solved(t_sudo *sudo)
 	int		x;
 	int		y;
 
-	print_color("\e[0;32m-", 37, 1);
-	x = -1;
+	printf("\n\e[0;34mInput:\e[0m -a \e[0;35my \e[0;35mx \e[0mn | \e[0;34mErase:\e[0m -e \e[0;35my \e[0;35mx\e[0m | \e[0;34mExit: \e[0mexit\n\n");
+	printf("\e[1;32my\e[0;34m\\\e[1;32mx\e[0;35m  0   1   2   3   4   5   6   7   8\n   \e[0m");
+	print_color("\e[1;32m-", 37, 1);
 	y = -1;
 	while (++y < 9)
 	{
-		print_color("\e[0;32m|", 1, 0);
+		printf("\e[0;35m%d  \e[0m", y);
+		print_color("\e[1;32m|", 1, 0);
 		x = -1;
 		while (++x < 9)
 		{
-			if (sudo->fixed[y][x])
-				printf(" \e[0;34m%d\e[0m ", sudo->solved[y][x]);
+			if (sudo->solved[y][x])
+				printf("\e[1;34m %d \e[0m", sudo->solved[y][x]);
 			else
-				printf(" \e[0;32m%d\e[0m ", sudo->solved[y][x]);
+				printf(" \e[2;37m%d\e[0m ", sudo->solved[y][x]);
 			print_VLine(x);
 		}
 		print_HLine(x, y);
@@ -78,25 +80,28 @@ void	print_grid(t_sudo *sudo)
 	int		x;
 	int		y;
 
-	printf("\n\e[0;34mInput:\e[0m -a y x n | \e[0;34mErase:\e[0m -e y x | \e[0;34mExit: \e[0mexit\n\n");
+	printf("\n\e[0;34mInput:\e[0m -a \e[0;35my \e[0;35mx \e[0mn | \e[0;34mErase:\e[0m -e \e[0;35my \e[0;35mx\e[0m | \e[0;34mExit: \e[0mexit\n\n");
 	while (sudo->grids--)
 		write(1, "\033[1A\r\033[K", 8);
-	printf("\e[0;32my\e[0;34m\\\e[0;32mx\e[0;33m  0   1   2   3   4   5   6   7   8\n   \e[0m");
-	print_color("\e[0;32m-", 37, 1);
+	printf("\e[1;32my\e[0;34m\\\e[1;32mx\e[0;35m  0   1   2   3   4   5   6   7   8\n   \e[0m");
+	print_color("\e[1;32m-", 37, 1);
 	y = -1;
 	while (++y < 9)
 	{
-		printf("\e[0;33m%d  \e[0m", y);
-		print_color("\e[0;32m|", 1, 0);
+		printf("\e[0;35m%d  \e[0m", y);
+		print_color("\e[1;32m|", 1, 0);
 		x = -1;
 		while (++x < 9)
 		{
 			if (sudo->fixed[y][x])
-				printf(" \e[0;34m%d\e[0m ", sudo->grid[y][x]);
+				printf("\e[1;34m %d \e[0m", sudo->grid[y][x]);
 			else if (!sudo->grid[y][x])
-				printf(" %d ", sudo->grid[y][x]);
-			else if (sudo->grid[y][x] == sudo->solved[y][x])
+				printf(" \e[2;37m%d ", sudo->grid[y][x]);
+			else if (sudo->grid[y][x] == sudo->solved[y][x] && y == sudo->y && 
+			x == sudo->x)
 				printf(" \e[0;32m%d\e[0m ", sudo->grid[y][x]);
+			else if (sudo->grid[y][x] == sudo->solved[y][x])
+				printf(" \e[0m%d ", sudo->grid[y][x]);
 			else
 				printf(" \e[0;31m%d\e[0m ", sudo->grid[y][x]);
 			print_VLine(x);

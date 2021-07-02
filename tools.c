@@ -6,7 +6,7 @@
 /*   By: ybouddou <ybouddou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 13:05:56 by ybouddou          #+#    #+#             */
-/*   Updated: 2021/06/30 18:35:36 by ybouddou         ###   ########.fr       */
+/*   Updated: 2021/07/02 14:55:26 by ybouddou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,120 @@ int		which_cell(int x, int y)
 	return (cell);
 }
 
-void	fill_grid(t_sudo *sudo, int grid[9][9])
+int		set_bits(int cell)
+{
+	int		i;
+	int		c;
+
+	c = 0;
+	i = -1;
+	while (++i < 9)
+	{
+		if ((1 << i) & cell)
+			c++;
+	}
+	return (c);
+}
+
+int		check_shuffled(t_sudo *sudo, int x, int with)
+{
+	int		cell;
+
+	cell = which_cell(x, 0) + which_cell(with, 0);
+	if (((sudo->cell_shuffle[cell] >> (cell)) & 1) || ((sudo->shuffled[x] >> (x)) & 1))
+		return (1);
+	sudo->shuffled[x] = (1 << x) | sudo->shuffled[x];
+	// sudo->shuffled[with] = (1 << with) | sudo->shuffled[with];
+	sudo->cell_shuffle[cell] = (1 << (cell)) | sudo->cell_shuffle[cell];
+	return (0);
+}
+
+int		start_subgrid(int x)
+{
+	int		start;
+
+	start = x / 3;
+	if (start == 1)
+		start += 2;
+	else if (start == 2)
+		start += 4;
+	return (start);
+}
+
+void	shuffle(t_sudo *sudo)
+{
+	int		i;
+	int		x;
+	int		y;
+	int		with;
+	int		tmp;
+	int		y_end;
+	int		x_end;
+
+	srand(time(0));
+	i = rand() % (3 - 2 + 1) + 2;
+	// printf("i : %d\n\n", i);
+	while (i--)
+	{
+		do
+		{
+			x = rand() % 8;
+			with = x + 3;
+			with = with > 8 ? (with - 9) : with;
+		} while (check_shuffled(sudo, x, with));
+		// printf("x : %d | with : %d\n", x, with);
+		y = -1;
+		while (++y < 9)
+		{
+			tmp = sudo->solved[y][x];
+			sudo->solved[y][x] = sudo->solved[y][with];
+			sudo->solved[y][with] = tmp;
+		}
+		// printf("-----------------------\n");
+	}
+	y = rand() % 8;
+	with = y + 3;
+	with = with > 8 ? (with - 9) : with;
+	// printf("y : %d | with : %d\n", y, with);
+	y = start_subgrid(y);
+	with = start_subgrid(with);
+	// printf("y : %d | with : %d\n", y, with);
+	y_end = y + 3;
+	while (y < y_end)
+	{
+		x = -1;
+		while (++x < 9)
+		{
+			tmp = sudo->solved[y][x];
+			sudo->solved[y][x] = sudo->solved[with][x];
+			sudo->solved[with][x] = tmp;
+		}
+		y++;
+		with++;
+	}
+	x = rand() % 8;
+	with = x + 3;
+	with = with > 8 ? (with - 9) : with;
+	// printf("x : %d | with : %d\n", x, with);
+	x = start_subgrid(x);
+	with = start_subgrid(with);
+	// printf("x : %d | with : %d\n", x, with);
+	x_end = x + 3;
+	while (x < x_end)
+	{
+		y = -1;
+		while (++y < 9)
+		{
+			tmp = sudo->solved[y][x];
+			sudo->solved[y][x] = sudo->solved[y][with];
+			sudo->solved[y][with] = tmp;
+		}
+		x++;
+		with++;
+	}
+}
+
+void	fill_grid(t_sudo *sudo)
 {
 	int		x;
 	int		y;
@@ -79,14 +192,7 @@ void	fill_grid(t_sudo *sudo, int grid[9][9])
 	{
 		x = -1;
 		while (++x < 9)
-			sudo->solved[y][x] = grid[y][x];
-	}
-	y = -1;
-	while (++y < 9)
-	{
-		x = -1;
-		while (++x < 9)
-			sudo->grid[y][x] = grid[y][x];
+			sudo->grid[y][x] = sudo->solved[y][x];
 	}
 }
 
