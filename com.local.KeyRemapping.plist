@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.local.KeyRemapping</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/hidutil</string>
+        <string>property</string>
+        <string>--set</string>
+        <string>{"UserKeyMapping":[
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000014,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000001A,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000008,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000015,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000017,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000001C,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000018,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000000C,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000012,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000013,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000004,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000016,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000007,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000009,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000000A,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000000D,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000000E,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000000F,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000001D,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000001B,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000006,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000019,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000005,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000011,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000010,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000052,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x700000051,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000002C,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            },
+            {
+              "HIDKeyboardModifierMappingSrc": 0x70000002A,
+              "HIDKeyboardModifierMappingDst": 0x70000000B
+            }
+        ]}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
